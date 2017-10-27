@@ -8,6 +8,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-DemiBold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--MapVC-->
         <scene sceneID="tne-QT-ifu">
@@ -16,13 +21,73 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUj-m9-Kpk">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sIL-oU-Ier">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double tap to drop a pin and view photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egf-B7-gH4">
+                                        <rect key="frame" x="42" y="30" width="290" height="21"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.65098039215686276" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="H4d-Qv-KES"/>
+                                    <constraint firstItem="Egf-B7-gH4" firstAttribute="centerX" secondItem="sIL-oU-Ier" secondAttribute="centerX" id="jED-XA-y05"/>
+                                    <constraint firstItem="Egf-B7-gH4" firstAttribute="centerY" secondItem="sIL-oU-Ier" secondAttribute="centerY" id="n2d-rk-YCH"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5G-Sa-LVO">
+                                <rect key="frame" x="309" y="728" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="6qk-OT-tDj"/>
+                                    <constraint firstAttribute="height" constant="50" id="cDT-R3-hzb"/>
+                                </constraints>
+                                <state key="normal" image="location"/>
+                                <connections>
+                                    <action selector="centerMap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IFU-QA-ngu"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="giL-Nl-bfl" userLabel="bottomView">
+                                <rect key="frame" x="0.0" y="812" width="375" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="wKP-tI-4Wp"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="sIL-oU-Ier" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5i1-vO-BWN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="n5G-Sa-LVO" secondAttribute="trailing" constant="16" id="9fG-Yc-cvi"/>
+                            <constraint firstItem="giL-Nl-bfl" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9wu-iy-6d3"/>
+                            <constraint firstItem="TUj-m9-Kpk" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="JUJ-hj-tx6"/>
+                            <constraint firstAttribute="bottom" secondItem="giL-Nl-bfl" secondAttribute="bottom" id="Jl6-mZ-ZX4"/>
+                            <constraint firstItem="giL-Nl-bfl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="KBy-mN-LSD"/>
+                            <constraint firstItem="sIL-oU-Ier" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Kez-ye-Bth"/>
+                            <constraint firstItem="n5G-Sa-LVO" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="QMq-cb-QIt"/>
+                            <constraint firstItem="TUj-m9-Kpk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Ycq-44-PF2"/>
+                            <constraint firstItem="giL-Nl-bfl" firstAttribute="top" secondItem="TUj-m9-Kpk" secondAttribute="bottom" id="ceQ-Dr-dKe"/>
+                            <constraint firstItem="sIL-oU-Ier" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="g9Z-iG-6sZ"/>
+                            <constraint firstItem="TUj-m9-Kpk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mtt-z6-YkA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="TUj-m9-Kpk" id="1R6-dr-fcD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-233" y="-19"/>
+            <point key="canvasLocation" x="-474" y="-23"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="location" width="67" height="67"/>
+    </resources>
 </document>
