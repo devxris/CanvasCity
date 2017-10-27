@@ -41,11 +41,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	
 	lazy var spinner: UIActivityIndicatorView = {
 		let spinner = UIActivityIndicatorView()
-		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
-		                          y: (self.pullupView.frame.height - spinner.frame.height)/2)
 		spinner.activityIndicatorViewStyle = .whiteLarge
 		spinner.color = .darkGray
-		spinner.startAnimating()
 		return spinner
 	}()
 	
@@ -63,11 +60,22 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	// helper functions
-	func removePin() { mapView.annotations.forEach { mapView.removeAnnotation($0) } }
+	func removePin() {
+		mapView.annotations.forEach { mapView.removeAnnotation($0) }
+		spinner.removeFromSuperview()
+	}
+	
+	func addSpinner() {
+		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
+		                         y: (self.pullupView.frame.height - spinner.frame.height)/2)
+		pullupView.addSubview(spinner)
+		spinner.startAnimating()
+	}
+	
 	func animateViewUp() {
 		pullupViewHeightConstraint.constant = 300
 		UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
-		pullupView.addSubview(spinner)
+		addSpinner()
 	}
 	
 	// selector functions
