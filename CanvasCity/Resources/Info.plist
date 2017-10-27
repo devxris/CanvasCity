@@ -39,5 +39,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Accessing your location to download images</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Accessing your location to download images</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Accessing your location to download images</string>
 </dict>
 </plist>
