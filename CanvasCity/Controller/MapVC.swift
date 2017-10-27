@@ -45,6 +45,24 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		spinner.color = .darkGray
 		return spinner
 	}()
+	lazy var progressLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont(name: "Avenir Next", size: 18)
+		label.text = "12/40 Photos Loaded"
+		label.sizeToFit()
+		label.textColor = .darkGray
+		label.textAlignment = .center
+		return label
+	}()
+	lazy var collectionView: UICollectionView = {
+		let flowLayout = UICollectionViewFlowLayout()
+		let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
+		collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "Cell")
+		collectionView.dataSource = self
+		collectionView.delegate = self
+		collectionView.backgroundColor = .green
+		return collectionView
+	}()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -60,22 +78,33 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	// helper functions
+	func setupPullupView() { // based on UI heircharchy
+		// add collection view
+		pullupView.addSubview(collectionView)
+
+		// add spinner
+		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
+		                         y: (self.pullupView.frame.height - spinner.frame.height)/2)
+		collectionView.addSubview(spinner)
+		spinner.startAnimating()
+		
+		// add progress label
+		progressLabel.frame = CGRect(x: self.pullupView.frame.width / 2 - 100,
+		                             y: self.pullupView.frame.height / 2 - 20 + 50, width: 200, height: 40)
+		collectionView.addSubview(progressLabel)
+	}
+	
 	func removePin() {
 		mapView.annotations.forEach { mapView.removeAnnotation($0) }
 		spinner.removeFromSuperview()
-	}
-	
-	func addSpinner() {
-		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
-		                         y: (self.pullupView.frame.height - spinner.frame.height)/2)
-		pullupView.addSubview(spinner)
-		spinner.startAnimating()
+		progressLabel.removeFromSuperview()
+		collectionView.removeFromSuperview()
 	}
 	
 	func animateViewUp() {
 		pullupViewHeightConstraint.constant = 300
 		UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
-		addSpinner()
+		setupPullupView()
 	}
 	
 	// selector functions
@@ -134,5 +163,17 @@ extension MapVC: CLLocationManagerDelegate {
 	// CLLocationManagerDelegate functions
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 		centerMapOnUserLocation()
+	}
+}
+
+extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
+	
+	func numberOfSections(in collectionView: UICollectionView) -> Int { return 1}
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return 4
+	}
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoCell
+		return cell
 	}
 }
