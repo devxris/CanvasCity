@@ -12,6 +12,7 @@
 		457BD6FE1FA301B4005B3B85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457BD6FC1FA301B4005B3B85 /* Main.storyboard */; };
 		457BD7001FA301B4005B3B85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457BD6FF1FA301B4005B3B85 /* Assets.xcassets */; };
 		457BD7031FA301B4005B3B85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457BD7011FA301B4005B3B85 /* LaunchScreen.storyboard */; };
+		457BD7111FA31F2E005B3B85 /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BD7101FA31F2E005B3B85 /* DroppablePin.swift */; };
 		97293323A9C80204498B1638 /* Pods_CanvasCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0290E9B930A57E62E1755E87 /* Pods_CanvasCity.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		457BD6FF1FA301B4005B3B85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		457BD7021FA301B4005B3B85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457BD7041FA301B4005B3B85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		457BD7101FA31F2E005B3B85 /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
 		73698C8DCDFA20512A1CA34D /* Pods-CanvasCity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CanvasCity.release.xcconfig"; path = "Pods/Target Support Files/Pods-CanvasCity/Pods-CanvasCity.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 			children = (
 				457BD70D1FA3030D005B3B85 /* Utilities */,
 				457BD70A1FA301DA005B3B85 /* Resources */,
+				457BD70F1FA31F05005B3B85 /* CustomView */,
 				457BD70B1FA301E7005B3B85 /* View */,
 				457BD70C1FA301EC005B3B85 /* Controller */,
 			);
@@ -101,6 +104,14 @@
 			children = (
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		457BD70F1FA31F05005B3B85 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				457BD7101FA31F2E005B3B85 /* DroppablePin.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		4DEAE519E6FF6527F3769D09 /* Pods */ = {
@@ -244,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				457BD6FB1FA301B4005B3B85 /* MapVC.swift in Sources */,
+				457BD7111FA31F2E005B3B85 /* DroppablePin.swift in Sources */,
 				457BD6F91FA301B4005B3B85 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
