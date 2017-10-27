@@ -16,6 +16,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	@IBOutlet weak var mapView: MKMapView! {
 		didSet {
 			mapView.delegate = self
+			
 			// add double tap gesture
 			let doubleTap = UITapGestureRecognizer(target: self, action: #selector(dropPin(recognizer:)))
 			doubleTap.numberOfTapsRequired = 2
@@ -23,11 +24,30 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 			mapView.addGestureRecognizer(doubleTap)
 		}
 	}
+	@IBOutlet weak var pullupView: UIView! {
+		didSet {
+			// add swipe down pullupView
+			let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
+			swipeDown.direction = .down
+			pullupView.addGestureRecognizer(swipeDown)
+		}
+	}
+	@IBOutlet weak var pullupViewHeightConstraint: NSLayoutConstraint!
 	
 	// variables
 	let locationManager = CLLocationManager()
 	let authorizationStatus = CLLocationManager.authorizationStatus()
 	let regionRadius: Double = 1000
+	
+	lazy var spinner: UIActivityIndicatorView = {
+		let spinner = UIActivityIndicatorView()
+		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
+		                          y: (self.pullupView.frame.height - spinner.frame.height)/2)
+		spinner.activityIndicatorViewStyle = .whiteLarge
+		spinner.color = .darkGray
+		spinner.startAnimating()
+		return spinner
+	}()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,11 +64,23 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	
 	// helper functions
 	func removePin() { mapView.annotations.forEach { mapView.removeAnnotation($0) } }
+	func animateViewUp() {
+		pullupViewHeightConstraint.constant = 300
+		UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
+		pullupView.addSubview(spinner)
+	}
 	
 	// selector functions
+	@objc func animateViewDown () {
+		pullupViewHeightConstraint.constant = 0
+		UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
+	}
+
 	@objc func dropPin(recognizer: UITapGestureRecognizer) {
 		// remove previous annotation
 		removePin()
+		// animate pullup view
+		animateViewUp()
 		// get point from touch and covert to mapView coordinate
 		let touchPoint = recognizer.location(in: mapView)
 		let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
