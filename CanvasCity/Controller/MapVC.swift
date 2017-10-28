@@ -39,6 +39,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	let authorizationStatus = CLLocationManager.authorizationStatus()
 	let regionRadius: Double = 1000
 	
+	// UI elements
 	lazy var spinner: UIActivityIndicatorView = {
 		let spinner = UIActivityIndicatorView()
 		spinner.activityIndicatorViewStyle = .whiteLarge
@@ -64,6 +65,22 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		return collectionView
 	}()
 	
+	func setupPullupView() { // based on UI heircharchy
+		// add collection view
+		pullupView.addSubview(collectionView)
+		
+		// add spinner
+		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
+		                         y: (self.pullupView.frame.height - spinner.frame.height)/2)
+		collectionView.addSubview(spinner)
+		spinner.startAnimating()
+		
+		// add progress label
+		progressLabel.frame = CGRect(x: self.pullupView.frame.width / 2 - 100,
+		                             y: self.pullupView.frame.height / 2 - 20 + 50, width: 200, height: 40)
+		collectionView.addSubview(progressLabel)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		locationManager.delegate = self
@@ -78,22 +95,6 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	// helper functions
-	func setupPullupView() { // based on UI heircharchy
-		// add collection view
-		pullupView.addSubview(collectionView)
-
-		// add spinner
-		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
-		                         y: (self.pullupView.frame.height - spinner.frame.height)/2)
-		collectionView.addSubview(spinner)
-		spinner.startAnimating()
-		
-		// add progress label
-		progressLabel.frame = CGRect(x: self.pullupView.frame.width / 2 - 100,
-		                             y: self.pullupView.frame.height / 2 - 20 + 50, width: 200, height: 40)
-		collectionView.addSubview(progressLabel)
-	}
-	
 	func removePin() {
 		mapView.annotations.forEach { mapView.removeAnnotation($0) }
 		spinner.removeFromSuperview()
@@ -127,6 +128,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		// center to new annotation region
 		let coordinateRegion = MKCoordinateRegionMakeWithDistance(touchCoordinate, regionRadius * 2, regionRadius * 2)
 		mapView.setRegion(coordinateRegion, animated: true)
+		
+		// test here
+		print(flickrURL(forAPIKey: API_KEY, withAnnotation: annotation, andNumberOfPhotos: 40))
 	}
 }
 

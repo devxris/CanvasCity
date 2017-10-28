@@ -14,6 +14,7 @@
 		457BD7031FA301B4005B3B85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457BD7011FA301B4005B3B85 /* LaunchScreen.storyboard */; };
 		457BD7111FA31F2E005B3B85 /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BD7101FA31F2E005B3B85 /* DroppablePin.swift */; };
 		45FD437D1FA33A4D00F68F34 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FD437C1FA33A4D00F68F34 /* PhotoCell.swift */; };
+		45FD437F1FA46F0900F68F34 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FD437E1FA46F0900F68F34 /* Constant.swift */; };
 		97293323A9C80204498B1638 /* Pods_CanvasCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0290E9B930A57E62E1755E87 /* Pods_CanvasCity.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		457BD7041FA301B4005B3B85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		457BD7101FA31F2E005B3B85 /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
 		45FD437C1FA33A4D00F68F34 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		45FD437E1FA46F0900F68F34 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		73698C8DCDFA20512A1CA34D /* Pods-CanvasCity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CanvasCity.release.xcconfig"; path = "Pods/Target Support Files/Pods-CanvasCity/Pods-CanvasCity.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 		457BD70D1FA3030D005B3B85 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				45FD437E1FA46F0900F68F34 /* Constant.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			files = (
 				45FD437D1FA33A4D00F68F34 /* PhotoCell.swift in Sources */,
 				457BD6FB1FA301B4005B3B85 /* MapVC.swift in Sources */,
+				45FD437F1FA46F0900F68F34 /* Constant.swift in Sources */,
 				457BD7111FA31F2E005B3B85 /* DroppablePin.swift in Sources */,
 				457BD6F91FA301B4005B3B85 /* AppDelegate.swift in Sources */,
 			);
