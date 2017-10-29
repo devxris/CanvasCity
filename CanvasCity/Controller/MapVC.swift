@@ -49,7 +49,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	lazy var progressLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "Avenir Next", size: 18)
-		label.text = "12/40 Photos Loaded"
+		// label.text = "12/40 Photos Loaded"
 		label.sizeToFit()
 		label.textColor = .darkGray
 		label.textAlignment = .center
@@ -66,10 +66,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	}()
 	
 	var imageUrlString = [String]()
+	var images = [UIImage]()
 	
 	func setupPullupView() { // based on UI heircharchy
-		// add collection view
-		pullupView.addSubview(collectionView)
 		
 		// add spinner
 		spinner.center = CGPoint(x: (self.pullupView.frame.width - spinner.frame.width)/2,
@@ -80,13 +79,18 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		// add progress label
 		progressLabel.frame = CGRect(x: self.pullupView.frame.width / 2 - 100,
 		                             y: self.pullupView.frame.height / 2 - 20 + 50, width: 200, height: 40)
+		progressLabel.text = ""
 		collectionView.addSubview(progressLabel)
+		
+		// add collection view
+		pullupView.addSubview(collectionView)
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		locationManager.delegate = self
 		configureLocationServices()
+		NotificationCenter.default.addObserver(self, selector: #selector(downloadProgress(notification:)), name: PHOTO_DOWNLOAD_COUNT, object: nil)
 	}
 
 	// target actions
@@ -111,9 +115,18 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	// selector functions
-	@objc func animateViewDown () {
+	@objc func animateViewDown() {
+		FlickrService.instance.cancelAllSessions()
+//		spinner.removeFromSuperview()
+//		progressLabel.removeFromSuperview()
+//		collectionView.removeFromSuperview()
 		pullupViewHeightConstraint.constant = 0
 		UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
+	}
+	
+	@objc func downloadProgress(notification: Notification) {
+		guard let imagesCount = notification.userInfo?["imagesCount"] as? Int else { return }
+		progressLabel.text = "\(imagesCount)/40 Photos Loaded"
 	}
 
 	@objc func dropPin(recognizer: UITapGestureRecognizer) {
@@ -121,6 +134,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		removePin()
 		// animate pullup view
 		animateViewUp()
+		// cancel previous FlickrService sessions
+		FlickrService.instance.cancelAllSessions()
+		
 		// get point from touch and covert to mapView coordinate
 		let touchPoint = recognizer.location(in: mapView)
 		let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -134,11 +150,17 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		// get Flicker Photo URLs
 		FlickrService.instance.retrieveURLs(forAnnotation: annotation) { (success, fetchedURLs) in
 			self.imageUrlString.removeAll()
-			if success {
-				guard let photosURLs = fetchedURLs else { return }
-				print(photosURLs)
+			if success { guard let photosURLs = fetchedURLs else { return }; print(photosURLs)
+				// get Flicker Photos
+				FlickrService.instance.retrieveImages(completion: { (finished, fetchedImages) in
+					self.spinner.removeFromSuperview()
+					self.progressLabel.removeFromSuperview()
+					// reload collection view
+				})
 			}
 		}
+		
+		
 	}
 }
 
