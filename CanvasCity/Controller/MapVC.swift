@@ -65,6 +65,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		return collectionView
 	}()
 	
+	var imageUrlString = [String]()
+	
 	func setupPullupView() { // based on UI heircharchy
 		// add collection view
 		pullupView.addSubview(collectionView)
@@ -129,8 +131,14 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		let coordinateRegion = MKCoordinateRegionMakeWithDistance(touchCoordinate, regionRadius * 2, regionRadius * 2)
 		mapView.setRegion(coordinateRegion, animated: true)
 		
-		// test here
-		print(flickrURL(forAPIKey: API_KEY, withAnnotation: annotation, andNumberOfPhotos: 40))
+		// get Flicker Photo URLs
+		FlickrService.instance.retrieveURLs(forAnnotation: annotation) { (success, fetchedURLs) in
+			self.imageUrlString.removeAll()
+			if success {
+				guard let photosURLs = fetchedURLs else { return }
+				print(photosURLs)
+			}
+		}
 	}
 }
 
