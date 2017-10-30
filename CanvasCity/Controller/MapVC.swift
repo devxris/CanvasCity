@@ -117,9 +117,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 	// selector functions
 	@objc func animateViewDown() {
 		FlickrService.instance.cancelAllSessions()
-//		spinner.removeFromSuperview()
-//		progressLabel.removeFromSuperview()
-//		collectionView.removeFromSuperview()
+		spinner.removeFromSuperview()
+		progressLabel.removeFromSuperview()
+		collectionView.removeFromSuperview()
 		pullupViewHeightConstraint.constant = 0
 		UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
 	}
@@ -153,14 +153,14 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 			if success { guard let photosURLs = fetchedURLs else { return }; print(photosURLs)
 				// get Flicker Photos
 				FlickrService.instance.retrieveImages(completion: { (finished, fetchedImages) in
-					self.spinner.removeFromSuperview()
-					self.progressLabel.removeFromSuperview()
-					// reload collection view
+					if finished {
+						self.spinner.removeFromSuperview()
+						self.progressLabel.removeFromSuperview()
+						// reload collection view
+					}
 				})
 			}
 		}
-		
-		
 	}
 }
 

@@ -49,7 +49,20 @@ class FlickrService {
 	
 	func retrieveImages(completion: @escaping (_ status: Bool, _ images: [UIImage]?) -> Void) {
 		photos = []
-		DataRequest.addAcceptableImageContentTypes(["image/jpg"]) // AlamofireImage support 
+		// AlamofireImage support
+		DataRequest.addAcceptableImageContentTypes(["image/tiff",
+		                                            "image/x-win-bitmap",
+		                                            "image/jpeg",
+		                                            "image/x-icon",
+		                                            "image/ico",
+		                                            "image/gif",
+		                                            "image/bmp",
+		                                            "image/x-bmp",
+		                                            "image/x-xbitmap",
+		                                            "image/png",
+		                                            "image/x-ms-bmp",
+		                                            "image/jpg",
+		                                            "text/html"])
 		photosUrls.forEach {
 			Alamofire.request($0).responseImage(completionHandler: { (response) in
 				if response.result.error == nil {
