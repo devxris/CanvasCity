@@ -61,7 +61,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "Cell")
 		collectionView.dataSource = self
 		collectionView.delegate = self
-		collectionView.backgroundColor = .green
+		collectionView.backgroundColor = .white
 		return collectionView
 	}()
 	
@@ -136,6 +136,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		animateViewUp()
 		// cancel previous FlickrService sessions
 		FlickrService.instance.cancelAllSessions()
+		// remove all previous images
+		images.removeAll()
+		collectionView.reloadData()
 		
 		// get point from touch and covert to mapView coordinate
 		let touchPoint = recognizer.location(in: mapView)
@@ -156,7 +159,11 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 					if finished {
 						self.spinner.removeFromSuperview()
 						self.progressLabel.removeFromSuperview()
-						// reload collection view
+						guard let images = fetchedImages else { return }
+						DispatchQueue.main.async {
+							self.images = images
+							self.collectionView.reloadData()
+						}
 					}
 				})
 			}
@@ -204,10 +211,12 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	func numberOfSections(in collectionView: UICollectionView) -> Int { return 1}
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 4
+		return images.count
 	}
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoCell
+		let imageView = UIImageView(image: images[indexPath.item])
+		cell.addSubview(imageView)
 		return cell
 	}
 }
