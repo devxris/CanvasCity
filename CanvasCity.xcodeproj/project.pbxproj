@@ -16,6 +16,7 @@
 		45FD437D1FA33A4D00F68F34 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FD437C1FA33A4D00F68F34 /* PhotoCell.swift */; };
 		45FD43821FA474D900F68F34 /* FlickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FD43811FA474D900F68F34 /* FlickrService.swift */; };
 		45FD43841FA47A2400F68F34 /* FlickrPhotoURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FD43831FA47A2400F68F34 /* FlickrPhotoURL.swift */; };
+		45FD43871FA6D3B600F68F34 /* PopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FD43861FA6D3B600F68F34 /* PopVC.swift */; };
 		97293323A9C80204498B1638 /* Pods_CanvasCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0290E9B930A57E62E1755E87 /* Pods_CanvasCity.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		45FD437C1FA33A4D00F68F34 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		45FD43811FA474D900F68F34 /* FlickrService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrService.swift; sourceTree = "<group>"; };
 		45FD43831FA47A2400F68F34 /* FlickrPhotoURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoURL.swift; sourceTree = "<group>"; };
+		45FD43861FA6D3B600F68F34 /* PopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopVC.swift; sourceTree = "<group>"; };
 		73698C8DCDFA20512A1CA34D /* Pods-CanvasCity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CanvasCity.release.xcconfig"; path = "Pods/Target Support Files/Pods-CanvasCity/Pods-CanvasCity.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 			children = (
 				457BD6F81FA301B4005B3B85 /* AppDelegate.swift */,
 				457BD6FA1FA301B4005B3B85 /* MapVC.swift */,
+				45FD43861FA6D3B600F68F34 /* PopVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 			files = (
 				45FD437D1FA33A4D00F68F34 /* PhotoCell.swift in Sources */,
 				457BD6FB1FA301B4005B3B85 /* MapVC.swift in Sources */,
+				45FD43871FA6D3B600F68F34 /* PopVC.swift in Sources */,
 				45FD43821FA474D900F68F34 /* FlickrService.swift in Sources */,
 				45FD43841FA47A2400F68F34 /* FlickrPhotoURL.swift in Sources */,
 				457BD7111FA31F2E005B3B85 /* DroppablePin.swift in Sources */,

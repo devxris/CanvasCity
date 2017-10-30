@@ -219,4 +219,9 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
 		cell.addSubview(imageView)
 		return cell
 	}
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else { return }
+		popVC.initData(forImage: images[indexPath.item])
+		present(popVC, animated: true, completion: nil)
+	}
 }
