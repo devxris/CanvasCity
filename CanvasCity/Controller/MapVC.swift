@@ -91,6 +91,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 		locationManager.delegate = self
 		configureLocationServices()
 		NotificationCenter.default.addObserver(self, selector: #selector(downloadProgress(notification:)), name: PHOTO_DOWNLOAD_COUNT, object: nil)
+		registerForPreviewing(with: self, sourceView: collectionView) // register to 3D touch delegate
 	}
 
 	// target actions
@@ -223,5 +224,23 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
 		guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else { return }
 		popVC.initData(forImage: images[indexPath.item])
 		present(popVC, animated: true, completion: nil)
+	}
+}
+
+extension MapVC: UIViewControllerPreviewingDelegate {
+	
+	// peek
+	func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+		guard let indexPath = collectionView.indexPathForItem(at: location) else { return nil }
+		guard let cell = collectionView.cellForItem(at: indexPath) else { return nil }
+		guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else { return nil}
+		popVC.initData(forImage: images[indexPath.item])
+		previewingContext.sourceRect = cell.contentView.frame
+		return popVC
+	}
+	
+	// pop
+	func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+		show(viewControllerToCommit, sender: self)
 	}
 }
